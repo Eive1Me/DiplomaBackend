@@ -6,6 +6,8 @@ import com.example.diploma.services.StatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("${app.baseApi}${app.apiVer1}${app.endpoints.statuses}")
 @RequiredArgsConstructor
@@ -16,6 +18,11 @@ public class StatusController {
     @GetMapping("{id}")
     public StatusResponseDto get(@PathVariable Long id) {
         return service.read(id);
+    }
+
+    @GetMapping("all")
+    public List<StatusResponseDto> getAll() {
+        return service.readAll();
     }
 
     @PostMapping

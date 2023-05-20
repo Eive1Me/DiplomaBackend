@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StatusServiceImpl implements StatusService {
@@ -41,6 +43,21 @@ public class StatusServiceImpl implements StatusService {
     public StatusEntity readEntity(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new AppException.NotFoundException("Status with id = " + id + " is not found"));
+    }
+
+    @Override
+    public List<StatusResponseDto> readAll() {
+        List<StatusEntity> entities = readAllEntity();
+        if (!entities.isEmpty()) {
+            return entities.stream().map(mapper::toDto).toList();
+        } else {
+            throw new AppException.NotFoundException("Status not found or empty");
+        }
+    }
+
+    @Override
+    public List<StatusEntity> readAllEntity() {
+        return repository.findAll();
     }
 
     @Override

@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Validated
 public interface PriorityService {
 
@@ -17,6 +19,10 @@ public interface PriorityService {
     PriorityResponseDto read(@NotNull Long id);
 
     PriorityEntity readEntity(@NotNull Long id);
+
+    List<PriorityResponseDto> readAll();
+
+    List<PriorityEntity> readAllEntity();
 
     PriorityResponseDto update(@NotNull Long id, @NotNull @Valid PriorityRequestDto requestDto);
 

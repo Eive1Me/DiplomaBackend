@@ -6,6 +6,8 @@ import com.example.diploma.services.PriorityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("${app.baseApi}${app.apiVer1}${app.endpoints.priorities}")
 @RequiredArgsConstructor
@@ -16,6 +18,11 @@ public class PriorityController {
     @GetMapping("{id}")
     public PriorityResponseDto get(@PathVariable Long id) {
         return service.read(id);
+    }
+
+    @GetMapping("all")
+    public List<PriorityResponseDto> getAll() {
+        return service.readAll();
     }
 
     @PostMapping

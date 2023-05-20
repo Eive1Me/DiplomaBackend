@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PriorityServiceImpl implements PriorityService {
@@ -41,6 +43,21 @@ public class PriorityServiceImpl implements PriorityService {
     public PriorityEntity readEntity(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new AppException.NotFoundException("Category with id = " + id + " is not found"));
+    }
+
+    @Override
+    public List<PriorityResponseDto> readAll() {
+        List<PriorityEntity> entities = readAllEntity();
+        if (!entities.isEmpty()) {
+            return entities.stream().map(mapper::toDto).toList();
+        } else {
+            throw new AppException.NotFoundException("Priority not found or empty");
+        }
+    }
+
+    @Override
+    public List<PriorityEntity> readAllEntity() {
+        return repository.findAll();
     }
 
     @Override

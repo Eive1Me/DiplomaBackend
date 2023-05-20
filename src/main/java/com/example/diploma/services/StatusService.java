@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Validated
 public interface StatusService {
 
@@ -17,6 +19,10 @@ public interface StatusService {
     StatusResponseDto read(@NotNull Long id);
 
     StatusEntity readEntity(@NotNull Long id);
+
+    List<StatusResponseDto> readAll();
+
+    List<StatusEntity> readAllEntity();
 
     StatusResponseDto update(@NotNull Long id, @NotNull @Valid StatusRequestDto requestDto);
 
