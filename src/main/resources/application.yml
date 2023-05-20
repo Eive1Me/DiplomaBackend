@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  swagger-ui:
+    path: /docs
+
+app:
+  baseApi: /antiprocrastinate-api
+  apiVer1: /v1
+  endpoints:
+    categories: /categories
+    groups: /groups
+    priorities: /priorities
+    statuses: /statuses
+    tasks: /tasks
+    users: /users
