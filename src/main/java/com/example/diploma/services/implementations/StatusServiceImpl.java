@@ -1,11 +1,11 @@
 package com.example.diploma.services.implementations;
 
-import com.example.diploma.entities.StatusEntity;
-import com.example.diploma.mappers.StatusMapper;
-import com.example.diploma.services.StatusService;
-import com.example.diploma.repos.StatusRepository;
 import com.example.diploma.dto.requests.StatusRequestDto;
 import com.example.diploma.dto.responses.StatusResponseDto;
+import com.example.diploma.entities.StatusEntity;
+import com.example.diploma.mappers.StatusMapper;
+import com.example.diploma.repos.StatusRepository;
+import com.example.diploma.services.StatusService;
 import com.example.diploma.utils.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,7 +39,8 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public StatusEntity readEntity(Long id) {
-        return repository.findById(id).orElseThrow(() -> new AppException.NotFoundException("Status with id = " + id + " is not found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new AppException.NotFoundException("Status with id = " + id + " is not found"));
     }
 
     @Override

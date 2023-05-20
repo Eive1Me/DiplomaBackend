@@ -1,6 +1,5 @@
 package com.example.diploma.entities;
 
-import com.example.diploma.entities.GroupEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

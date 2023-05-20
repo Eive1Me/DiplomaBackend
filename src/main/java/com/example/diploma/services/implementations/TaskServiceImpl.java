@@ -1,15 +1,18 @@
 package com.example.diploma.services.implementations;
 
-import com.example.diploma.services.*;
+import com.example.diploma.dto.requests.TaskRequestDto;
+import com.example.diploma.dto.responses.TaskResponseDto;
 import com.example.diploma.entities.TaskEntity;
 import com.example.diploma.mappers.TaskMapper;
 import com.example.diploma.repos.TaskRepository;
-import com.example.diploma.dto.requests.TaskRequestDto;
-import com.example.diploma.dto.responses.TaskResponseDto;
+import com.example.diploma.services.*;
 import com.example.diploma.utils.AppException;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -52,7 +55,25 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskEntity readEntity(Long id) {
-        return repository.findById(id).orElseThrow(() -> new AppException.NotFoundException("Task with id = " + id + " is not found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new AppException.NotFoundException("Task with id = " + id + " is not found"));
+    }
+
+    @Override
+    public List<TaskResponseDto> readAll(@Nullable Long id) {
+        List<TaskEntity> entities = readAllEntity(id);
+        if (!entities.isEmpty()) {
+            return entities.stream().map(mapper::toDto).toList();
+        } else {
+            throw new AppException.NotFoundException("Task not found or empty");
+        }
+    }
+
+    @Override
+    public List<TaskEntity> readAllEntity(@Nullable Long id) {
+        return id != null ? repository.findAll().stream()
+                .filter(taskEntity -> taskEntity.getUserId().getId().compareTo(id) == 0)
+                .toList() : repository.findAll();
     }
 
     @Override

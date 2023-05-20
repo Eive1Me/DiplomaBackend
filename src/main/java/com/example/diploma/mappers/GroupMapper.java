@@ -1,8 +1,8 @@
 package com.example.diploma.mappers;
 
-import com.example.diploma.entities.GroupEntity;
 import com.example.diploma.dto.requests.GroupRequestDto;
 import com.example.diploma.dto.responses.GroupResponseDto;
+import com.example.diploma.entities.GroupEntity;
 import com.example.diploma.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class GroupMapper {
 
     private final UserMapper userMapper;
 
-    public GroupEntity toEntity(GroupRequestDto groupRequestDto, UserEntity userEntity){
+    public GroupEntity toEntity(GroupRequestDto groupRequestDto, UserEntity userEntity) {
         return GroupEntity.builder()
                 .name(groupRequestDto.getName())
                 .userId(userEntity)

@@ -45,7 +45,8 @@ public class TaskRequestDto {
     @JsonProperty("completeTime")
     Timestamp completeTime;
 
-    public TaskRequestDto(Long userId, String name, Long categoryId, Long priorityId, Timestamp plannedTime, Timestamp deadlineTime, String desc, Long groupId, Long statusId, Timestamp completeTime) {
+    public TaskRequestDto(Long userId, String name, Long categoryId, Long priorityId, Timestamp plannedTime,
+                          Timestamp deadlineTime, String desc, Long groupId, Long statusId, Timestamp completeTime) {
         this.userId = userId;
         this.name = name;
         this.categoryId = categoryId;

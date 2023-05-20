@@ -1,10 +1,12 @@
 package com.example.diploma.controllers;
 
-import com.example.diploma.services.GroupService;
 import com.example.diploma.dto.requests.GroupRequestDto;
 import com.example.diploma.dto.responses.GroupResponseDto;
+import com.example.diploma.services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${app.baseApi}${app.apiVer1}${app.endpoints.groups}")
@@ -16,6 +18,16 @@ public class GroupController {
     @GetMapping("{id}")
     public GroupResponseDto get(@PathVariable Long id) {
         return service.read(id);
+    }
+
+    @GetMapping("all/{userId}")
+    public List<GroupResponseDto> getAllForId(@PathVariable Long userId) {
+        return service.readAll(userId);
+    }
+
+    @GetMapping("all")
+    public List<GroupResponseDto> getAll() {
+        return service.readAll(null);
     }
 
     @PostMapping

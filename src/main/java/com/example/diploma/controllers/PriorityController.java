@@ -1,8 +1,8 @@
 package com.example.diploma.controllers;
 
-import com.example.diploma.services.PriorityService;
 import com.example.diploma.dto.requests.PriorityRequestDto;
 import com.example.diploma.dto.responses.PriorityResponseDto;
+import com.example.diploma.services.PriorityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

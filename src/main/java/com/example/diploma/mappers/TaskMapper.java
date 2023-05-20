@@ -1,9 +1,8 @@
 package com.example.diploma.mappers;
 
-import com.example.diploma.entities.*;
 import com.example.diploma.dto.requests.TaskRequestDto;
 import com.example.diploma.dto.responses.TaskResponseDto;
-import com.example.diploma.entities.UserEntity;
+import com.example.diploma.entities.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,8 @@ public class TaskMapper {
     private final GroupMapper groupMapper;
     private final StatusMapper statusMapper;
 
-    public TaskEntity toEntity(TaskRequestDto taskRequestDto, UserEntity userEntity, CategoryEntity categoryEntity, PriorityEntity priorityEntity, GroupEntity groupEntity, StatusEntity statusEntity) {
+    public TaskEntity toEntity(TaskRequestDto taskRequestDto, UserEntity userEntity, CategoryEntity categoryEntity,
+                               PriorityEntity priorityEntity, GroupEntity groupEntity, StatusEntity statusEntity) {
         return TaskEntity.builder()
                 .userId(userEntity)
                 .name(taskRequestDto.getName())

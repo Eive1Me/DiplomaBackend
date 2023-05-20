@@ -1,8 +1,8 @@
 package com.example.diploma.controllers;
 
-import com.example.diploma.services.UserService;
 import com.example.diploma.dto.requests.UserRequestDto;
 import com.example.diploma.dto.responses.UserResponseDto;
+import com.example.diploma.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +20,14 @@ public class UserController {
         return service.read(id);
     }
 
-    @GetMapping("all/{id}")
-    public List<UserResponseDto> getAll(@PathVariable Long id) {
-        return service.readAll(id);
+    @GetMapping("all/{userId}")
+    public List<UserResponseDto> getAllForId(@PathVariable Long userId) {
+        return service.readAll(userId);
+    }
+
+    @GetMapping("all")
+    public List<UserResponseDto> getAll(){
+        return service.readAll(null);
     }
 
     @PostMapping("{userId}/{groupId}")

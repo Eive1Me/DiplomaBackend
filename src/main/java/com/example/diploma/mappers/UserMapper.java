@@ -1,8 +1,8 @@
 package com.example.diploma.mappers;
 
-import com.example.diploma.entities.UserEntity;
 import com.example.diploma.dto.requests.UserRequestDto;
 import com.example.diploma.dto.responses.UserResponseDto;
+import com.example.diploma.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class UserMapper {
                 .build();
     }
 
-    public UserResponseDto toDto(UserEntity userEntity){
+    public UserResponseDto toDto(UserEntity userEntity) {
         return UserResponseDto.builder()
                 .id(userEntity.getId())
                 .login(userEntity.getLogin())

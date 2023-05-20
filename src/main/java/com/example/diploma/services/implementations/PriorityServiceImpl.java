@@ -1,10 +1,10 @@
 package com.example.diploma.services.implementations;
 
+import com.example.diploma.dto.requests.PriorityRequestDto;
+import com.example.diploma.dto.responses.PriorityResponseDto;
 import com.example.diploma.entities.PriorityEntity;
 import com.example.diploma.mappers.PriorityMapper;
 import com.example.diploma.repos.PriorityRepository;
-import com.example.diploma.dto.requests.PriorityRequestDto;
-import com.example.diploma.dto.responses.PriorityResponseDto;
 import com.example.diploma.services.PriorityService;
 import com.example.diploma.utils.AppException;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,8 @@ public class PriorityServiceImpl implements PriorityService {
 
     @Override
     public PriorityEntity readEntity(Long id) {
-        return repository.findById(id).orElseThrow(() -> new AppException.NotFoundException("Category with id = " + id + " is not found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new AppException.NotFoundException("Category with id = " + id + " is not found"));
     }
 
     @Override

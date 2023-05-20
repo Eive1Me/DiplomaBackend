@@ -1,10 +1,12 @@
 package com.example.diploma.controllers;
 
-import com.example.diploma.services.CategoryService;
 import com.example.diploma.dto.requests.CategoryRequestDto;
 import com.example.diploma.dto.responses.CategoryResponseDto;
+import com.example.diploma.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${app.baseApi}${app.apiVer1}${app.endpoints.categories}")
@@ -16,6 +18,16 @@ public class CategoryController {
     @GetMapping("{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
         return service.read(id);
+    }
+
+    @GetMapping("all/{userId}")
+    public List<CategoryResponseDto> getAllForId(@PathVariable Long userId) {
+        return service.readAll(userId);
+    }
+
+    @GetMapping("all")
+    public List<CategoryResponseDto> getAll() {
+        return service.readAll(null);
     }
 
     @PostMapping

@@ -1,19 +1,21 @@
 package com.example.diploma.services.implementations;
 
+import com.example.diploma.dto.requests.UserRequestDto;
+import com.example.diploma.dto.responses.UserResponseDto;
 import com.example.diploma.entities.GroupEntity;
 import com.example.diploma.entities.UserEntity;
 import com.example.diploma.mappers.UserMapper;
 import com.example.diploma.repos.GroupRepository;
-import com.example.diploma.services.UserService;
 import com.example.diploma.repos.UserRepository;
-import com.example.diploma.dto.requests.UserRequestDto;
-import com.example.diploma.dto.responses.UserResponseDto;
+import com.example.diploma.services.UserService;
 import com.example.diploma.utils.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +45,8 @@ public class UserServiceImpl implements UserService {
         UserEntity user = readEntity(userId);
         ArrayList<GroupEntity> groupEntities = new ArrayList<>(user.getGroups().stream().toList());
         try {
-            GroupEntity entity = groupRepository.findById(groupId).orElseThrow(() -> new AppException.NotFoundException("Group with id = " + groupId + " is not found"));
+            GroupEntity entity = groupRepository.findById(groupId).orElseThrow(
+                    () -> new AppException.NotFoundException("Group with id = " + groupId + " is not found"));
             groupEntities.add(entity);
             user.setGroups(groupEntities);
         } catch (NoSuchElementException e) {
@@ -59,19 +62,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity readEntity(Long id) {
-        return repository.findById(id).orElseThrow(() -> new AppException.NotFoundException("User with id = " + id + " is not found"));
+        return repository.findById(id)
+                .orElseThrow(() -> new AppException.NotFoundException("User with id = " + id + " is not found"));
     }
 
     @Override
     public List<UserResponseDto> readAll(Long id) {
         List<UserEntity> entities = readAllEntity(id);
-        return entities.stream().map(mapper::toDto).toList();
+        if (!entities.isEmpty()) {
+            return entities.stream().map(mapper::toDto).toList();
+        } else {
+            throw new AppException.NotFoundException("User not found or empty");
+        }
     }
 
     @Override
     public List<UserEntity> readAllEntity(Long id) {
-        System.out.println(repository.findAll().get(0).getGroups());
-        return id != null ? repository.findAll().stream().filter(userEntity -> userEntity.getGroups().stream().anyMatch(groupEntity -> groupEntity.getId().compareTo(id) == 0)).toList() : repository.findAll();
+        return id != null ? repository.findAll().stream().filter(userEntity -> userEntity.getGroups().stream()
+                .anyMatch(groupEntity -> groupEntity.getId().compareTo(id) == 0)).toList() : repository.findAll();
     }
 
     @Override

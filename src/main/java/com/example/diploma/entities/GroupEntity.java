@@ -13,20 +13,17 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class GroupEntity{
+public class GroupEntity {
 
+    @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
+    public Set<UserEntity> users;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "name", nullable = false)
     private String name;
-
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity userId;
-
-    @ManyToMany(mappedBy="groups", fetch = FetchType.EAGER)
-    public Set<UserEntity> users;
 
 }
