@@ -25,6 +25,11 @@ public class UserController {
         return service.readAll(userId);
     }
 
+    @GetMapping("user")
+    public UserResponseDto getByEssentials(@RequestParam String login, @RequestParam String password) {
+        return service.getUserByEssentials(login, password);
+    }
+
     @GetMapping("all")
     public List<UserResponseDto> getAll(){
         return service.readAll(null);

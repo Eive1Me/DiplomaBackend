@@ -19,6 +19,8 @@ public interface UserService {
 
     UserResponseDto addGroup(@NotNull Long userId, @NotNull Long groupId);
 
+    UserResponseDto getUserByEssentials(@NotNull String login, @NotNull String password);
+
     UserResponseDto read(@NotNull Long id);
 
     UserEntity readEntity(@NotNull Long id);

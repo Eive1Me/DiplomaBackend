@@ -11,6 +11,7 @@ import com.example.diploma.services.UserService;
 import com.example.diploma.utils.AppException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -73,6 +74,17 @@ public class UserServiceImpl implements UserService {
             return entities.stream().map(mapper::toDto).toList();
         } else {
             throw new AppException.NotFoundException("User not found or empty");
+        }
+    }
+
+    @Override
+    public UserResponseDto getUserByEssentials(String login, String password) {
+        List<UserEntity> users = repository.findAll();
+        users = users.stream().filter(userEntity -> userEntity.getLogin().equals(login) && userEntity.getPassword().equals(password)).toList();
+        if (!users.isEmpty())
+            return mapper.toDto(users.get(0));
+        else {
+            throw new AppException.NotFoundException("User not found");
         }
     }
 
