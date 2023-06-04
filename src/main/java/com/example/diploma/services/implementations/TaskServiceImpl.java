@@ -4,6 +4,7 @@ import com.example.diploma.dto.requests.TaskRequestDto;
 import com.example.diploma.dto.responses.TaskResponseDto;
 import com.example.diploma.entities.TaskEntity;
 import com.example.diploma.mappers.TaskMapper;
+import com.example.diploma.rearranging.GeneticAlgorithm;
 import com.example.diploma.repos.TaskRepository;
 import com.example.diploma.services.*;
 import com.example.diploma.utils.AppException;
@@ -95,6 +96,18 @@ public class TaskServiceImpl implements TaskService {
             return repository.save(task);
         } catch (DataIntegrityViolationException e) {
             throw new AppException.DatabaseException("Error while updating database: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<TaskResponseDto> rearrange(Long id){
+        List<TaskEntity> tasks = readAllEntity(id);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+        List<TaskEntity> newTasks = geneticAlgorithm.runGeneticAlgorithm(tasks).getTasks();
+        if (!newTasks.isEmpty()) {
+            return newTasks.stream().map(mapper::toDto).toList();
+        } else {
+            throw new AppException.NotFoundException("User with specified id not found or his taskList is empty");
         }
     }
 

@@ -40,6 +40,11 @@ public class TaskController {
         return service.update(id, requestDto);
     }
 
+    @GetMapping("rearranged/{userId}")
+    public List<TaskResponseDto> rearranged(@PathVariable Long userId) {
+        return service.rearrange(userId);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);

@@ -29,6 +29,8 @@ public interface TaskService {
 
     TaskEntity updateEntity(@NotNull TaskEntity task);
 
+    List<TaskResponseDto> rearrange(Long id);
+
     void delete(@NotNull Long id);
 
 }
