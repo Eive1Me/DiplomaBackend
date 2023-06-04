@@ -13,6 +13,7 @@ class DiplomaApplicationTests {
 
     @Autowired
     private TaskService taskService;
+    @Autowired
     private UserService userService;
 
     @Test
