@@ -21,6 +21,7 @@ public class GroupMapper {
     }
 
     public GroupResponseDto toDto(GroupEntity group) {
+        if (group == null) return null;
         return GroupResponseDto.builder()
                 .id(group.getId())
                 .name(group.getName())

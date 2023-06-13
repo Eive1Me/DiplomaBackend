@@ -22,7 +22,7 @@ public class Schedule {
     public Schedule(List<TaskEntity> tasks) {
         Random random = new Random();
         for (int i = 0; i < tasks.size(); i++) {
-            if (random.nextDouble() < 0.01) {
+            if (random.nextDouble() < 0.1) {
                 TaskEntity task = tasks.get(i);
                 Timestamp deadlineTime = task.getDeadlineTime();
                 Timestamp plannedTime = task.getPlannedTime();
@@ -39,6 +39,7 @@ public class Schedule {
                 }
             }
         }
+        this.tasks = tasks;
     }
 
     private long generateRandomTime(long startTime, long endTime) {

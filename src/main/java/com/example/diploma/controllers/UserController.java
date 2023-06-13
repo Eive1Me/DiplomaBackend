@@ -20,9 +20,9 @@ public class UserController {
         return service.read(id);
     }
 
-    @GetMapping("all/{userId}")
-    public List<UserResponseDto> getAllForId(@PathVariable Long userId) {
-        return service.readAll(userId);
+    @GetMapping("all/{groupId}")
+    public List<UserResponseDto> getAllForId(@PathVariable Long groupId) {
+        return service.readAll(groupId);
     }
 
     @GetMapping("user")

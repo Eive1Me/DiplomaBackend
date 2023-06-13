@@ -2,6 +2,7 @@ package com.example.diploma.services.implementations;
 
 import com.example.diploma.dto.requests.TaskRequestDto;
 import com.example.diploma.dto.responses.TaskResponseDto;
+import com.example.diploma.entities.GroupEntity;
 import com.example.diploma.entities.TaskEntity;
 import com.example.diploma.mappers.TaskMapper;
 import com.example.diploma.rearranging.GeneticAlgorithm;
@@ -30,12 +31,16 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponseDto create(TaskRequestDto requestDto) {
+        GroupEntity group = null;
+        if (requestDto.getGroupId() != null) {
+            group = groupService.readEntity(requestDto.getGroupId());
+        }
         TaskEntity task = mapper.toEntity(
                 requestDto,
                 userService.readEntity(requestDto.getUserId()),
                 categoryService.readEntity(requestDto.getCategoryId()),
                 priorityService.readEntity(requestDto.getPriorityId()),
-                groupService.readEntity(requestDto.getGroupId()),
+                group,
                 statusService.readEntity(requestDto.getStatusId()));
         return mapper.toDto(createEntity(task));
     }
@@ -79,12 +84,16 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponseDto update(Long id, TaskRequestDto requestDto) {
+        GroupEntity group = null;
+        if (requestDto.getGroupId() != null) {
+            group = groupService.readEntity(requestDto.getGroupId());
+        }
         TaskEntity task = mapper.toEntity(
                 requestDto,
                 userService.readEntity(requestDto.getUserId()),
                 categoryService.readEntity(requestDto.getCategoryId()),
                 priorityService.readEntity(requestDto.getPriorityId()),
-                groupService.readEntity(requestDto.getGroupId()),
+                group,
                 statusService.readEntity(requestDto.getStatusId()));
         task.setId(id);
         return mapper.toDto(updateEntity(task));
